@@ -1,0 +1,88 @@
+
+{% extends "events/index.html" %}
+{% load static %}
+{% block content %}
+<div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <div class="btn btn-dark"> 
+        <h1 class="cover-heading">UPDATE EVENTS</h1>
+        </div>
+      </div>
+    </div>
+<div class="btn btn-info">
+	
+          
+            <form name="event-create-form" method="POST" action="/event/create/" >
+            <div class="btn btn-success">
+            	<h2 class="event-label cover-heading">Event Title</h2>
+            </div>
+            <br>
+            <br>
+            <div class="btn btn-info">
+	            <input class="event-name" name="event-title" placeholder="Event Title" type="text">
+	        </div>
+	        <br>
+	        <br>
+	        <div class="btn btn-success">    
+	            <h2 class="event-label cover-heading">Event Type</h2>
+	        </div>    
+	        <br>
+	        <br>
+	            
+	            		<img class="event-type-img" src="{% static 'events/img/movie3.png' %}" alt="events" data-type="events"/><br><br>
+	            
+	            <div class="btn btn-info">
+	            <h2 class="event-label cover-heading">Start/End of Event</h2>
+	            </div>
+	            <br>
+	            <br>
+	            <div >
+	            <ul class="event-type-list">
+	            	<li>
+	            		<label for="event-start-date">Start Date:</label>
+	            		<input class="event-start-date" type="date" name="event-start-date"/>
+	            		<label for="event-start-time">Start Time:</label>
+	            		<input class="event-start-time" type="time" name="event-start-time"/>
+	            	</li>
+	            </div>	
+	            	<li>
+	            		<label for="event-end-date">End Date:</label>
+	            		<input class="event-end-date" type="date" name="event-end-date"/>
+	            		<label for="event-end-time">End Time:</label>
+	            		<input class="event-end-time" type="time" name="event-end-time"/>
+	            	</li>
+	            </ul>
+	            <input type="hidden" name="event-type"/>
+	            <input type="hidden" name="platform-type"/>
+	            <div class="btn btn-success">
+	            <h2 class="event-label cover-heading">Event Location</h2>
+	            </div>
+	            <br>
+	            <br>
+	            <div class="btn btn-success">
+	            <input class="event-location" name="event-location" placeholder="Event Location" type="text" autocomplete="off">
+	            </div>
+	            <div class="location-results-wrapper">
+	            	<table id="location-results-table"></table>
+	            </div>
+	            <br>
+	            <br>
+	            <div class="btn btn-secondary">   
+	            <h2 class="event-label cover-heading">Description</h2>
+	            <textarea class="event-description" name="event-description" cols="75" rows="5">{{ event.description }}</textarea>
+	            {% csrf_token %}
+	            <input type="hidden" name="user-id" value="{{ user.id }}"/>
+	            <br>
+	            <br>
+	            {% if user.is_authenticated %}
+	            	<button class="btn btn-outline event-create-btn" type="submit">Update</button>
+	        	{% else %}
+	        	    <div class="btn btn-dark">
+	        		<p class="signin-error">Sign in to update events</p>
+	        	</div>	
+	        		
+	        	{% endif %}
+            </form>
+	            
+          </main>
+{% endblock %}
